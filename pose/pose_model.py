@@ -39,5 +39,4 @@ class ArousalModel:
         self.features = np.concatenate((self.features[:, 1:, :], features), axis=1)
 
         predict = self.arousal_model_sess.run(["dense_1"], {"input_features": self.features})
-
-        return predict[0][0]
+        return predict[0][0][0]
