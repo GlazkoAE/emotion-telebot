@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+.idea/
+
+saved_models/
+*.onnx
+*.pth
+*.caffemodel
