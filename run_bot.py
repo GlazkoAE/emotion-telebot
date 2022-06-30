@@ -6,7 +6,7 @@ from moviepy.editor import VideoFileClip
 
 from face.face_model import Model as FaceModel
 from pose.pose_model import ArousalModel
-# from voice.voice_model import VoiceModel
+from voice.voice_model import VoiceModel
 from service.drawer import Drawer
 from service.image_loader import ImageTransformer
 
@@ -22,7 +22,7 @@ if __name__ == "__main__":
     bot = telebot.TeleBot(args.key, parse_mode=None)
     image_loader = ImageTransformer()
     face_model = FaceModel()
-    # voice_model = VoiceModel()
+    voice_model = VoiceModel()
     pose_model = ArousalModel()
     drawer = Drawer()
 
@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
     @bot.message_handler(content_types=["video"])
     def handle_dock_video(message):
-        try:
+        # try:
             file_info = bot.get_file(message.video.file_id)
             download_file = bot.download_file(file_info.file_path)
 
@@ -82,8 +82,7 @@ if __name__ == "__main__":
 
             with open(input_file_name, "wb") as input_file:
                 input_file.write(download_file)
-            # voice_model_predict = voice_model.predict(input_file_name)
-            voice_model_predict = None
+            voice_model_predict = voice_model.predict(input_file_name)
             video = VideoFileClip(input_file_name)
 
             # set models & foice predict as dreawer members for frame processing fun
@@ -101,7 +100,7 @@ if __name__ == "__main__":
             os.remove(output_file_name)
             os.remove(input_file_name)
 
-        except Exception as e:
-            bot.reply_to(message, "Something went wrong")
+        # except Exception as e:
+        #     bot.reply_to(message, "Something went wrong")
 
     bot.polling(non_stop=True, interval=0, timeout=1000)
