@@ -31,6 +31,7 @@ class VoiceModel:
         )
 
         path_to_data = utils.from_video_to_audio(video_name)
+        print(path_to_data)
 
         valid_set = torchvision.datasets.ImageFolder(
             root=path_to_data, transform=self.transform

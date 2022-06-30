@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
     @bot.message_handler(content_types=["video"])
     def handle_dock_video(message):
-        # try:
+        try:
             file_info = bot.get_file(message.video.file_id)
             download_file = bot.download_file(file_info.file_path)
 
@@ -100,7 +100,7 @@ if __name__ == "__main__":
             os.remove(output_file_name)
             os.remove(input_file_name)
 
-        # except Exception as e:
-        #     bot.reply_to(message, "Something went wrong")
+        except Exception as e:
+            bot.reply_to(message, "Something went wrong")
 
     bot.polling(non_stop=True, interval=0, timeout=1000)
