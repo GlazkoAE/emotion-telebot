@@ -70,7 +70,7 @@ def to_numpy(tensor):
     )
 
 
-def get_predct_onnx(ort_session, validation_loader, classes):
+def get_predict_onnx(ort_session, validation_loader, classes):
 
     full_predicted = []
     with torch.no_grad():
@@ -84,10 +84,7 @@ def get_predct_onnx(ort_session, validation_loader, classes):
             prediction = np.argmax(prediction)
             full_predicted.append(classes[prediction])
 
-    c = Counter(full_predicted)
-    stats = dict(c)
-    predict = max(stats, key=stats.get)
-    return predict
+    return full_predicted
 
 
 def get_predict(validation_loader, model, classes):
@@ -114,8 +111,7 @@ def from_video_to_audio(video_name):
         os.mkdir("voice/img_data")
     if not os.path.exists("voice/img_data/img"):
         os.mkdir("voice/img_data/img")
-    for file in glob.glob(video_name):
-        basename = os.path.basename(file)
+    for _ in glob.glob(video_name):
 
         target_path = "voice/audio_from_video/%s.wav" % video_name.split(".")[0]
         video = VideoFileClip(video_name)
@@ -128,7 +124,7 @@ def from_video_to_audio(video_name):
         temp_path = target_path.split("/")
         col = int((len(new_audio) / step))
 
-        for i, j in enumerate(range(col)):
+        for i in range(col):
 
             temp_audio = new_audio[t1:t2]
             temp_audio.export(
