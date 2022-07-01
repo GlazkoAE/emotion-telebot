@@ -25,13 +25,12 @@ class VoiceModel:
             "disgust",
             "fearful",
             "happy",
-            "neutral_calm",
+            "neutral",
             "sad",
             "surprised",
         )
 
         path_to_data = utils.from_video_to_audio(video_name)
-        print(path_to_data)
 
         valid_set = torchvision.datasets.ImageFolder(
             root=path_to_data, transform=self.transform
@@ -40,7 +39,7 @@ class VoiceModel:
             valid_set, batch_size=1, shuffle=False, num_workers=2
         )
 
-        predicted = utils.get_predct_onnx(self.ort_session, validation_loader, classes)
+        predicted = utils.get_predict_onnx(self.ort_session, validation_loader, classes)
 
         shutil.rmtree(path_to_data)
         return predicted

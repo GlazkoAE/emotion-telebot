@@ -23,6 +23,8 @@ class Drawer:
 
         self.models = {"pose_model": None, "face_model": None, "voice_prediction": None}
 
+        self.t_voice_next_pred = 3
+
     def set_models(self, pose_model, face_model, voice_prediction):
         self.models["pose_model"] = pose_model
         self.models["face_model"] = face_model
@@ -46,8 +48,11 @@ class Drawer:
             box = None
 
         if self.models["voice_prediction"] is not None:
-            voice_prediction = self.models["voice_prediction"]
-            self.models["voice_prediction"] = self.models["voice_prediction"][1:]
+            if t > self.t_voice_next_pred:
+                self.t_voice_next_pred += 3
+                if len(self.models["voice_prediction"]) > 1:
+                    self.models["voice_prediction"] = self.models["voice_prediction"][1:]
+            voice_prediction = self.models["voice_prediction"][0]
         else:
             voice_prediction = 'None'
 
