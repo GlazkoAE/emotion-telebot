@@ -8,7 +8,7 @@ COPY requirements.txt requirements.txt
 RUN apt-get update -y
 RUN apt-get install -y libglib2.0-0 libsm6 libxrender1 libfontconfig1
 RUN apt-get install -y libxext6 libgl1-mesa-glx
-RUN apt-get install libsndfile1
+RUN apt-get --yes install libsndfile1
 
 RUN pip install -U pip
 RUN pip install -U setuptools
