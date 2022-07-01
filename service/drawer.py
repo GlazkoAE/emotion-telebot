@@ -39,22 +39,24 @@ class Drawer:
         if self.models["pose_model"] is not None:
             pose_prediction = self.models["pose_model"].predict(frame)
         else:
-            pose_prediction = 'None'
+            pose_prediction = "None"
 
         if self.models["face_model"] is not None:
             face_prediction, box = self.models["face_model"].predict(frame)
         else:
-            face_prediction = 'None'
+            face_prediction = "None"
             box = None
 
         if self.models["voice_prediction"] is not None:
             if t > self.t_voice_next_pred:
                 self.t_voice_next_pred += 3
                 if len(self.models["voice_prediction"]) > 1:
-                    self.models["voice_prediction"] = self.models["voice_prediction"][1:]
+                    self.models["voice_prediction"] = self.models["voice_prediction"][
+                        1:
+                    ]
             voice_prediction = self.models["voice_prediction"][0]
         else:
-            voice_prediction = 'None'
+            voice_prediction = "None"
 
         frame = self.draw_face_box(frame, box)
         frame = self.draw_face_predict(frame, face_prediction)
@@ -88,7 +90,9 @@ class Drawer:
 
     def draw_pose_predict(self, image, predict):
         text = (
-            "Person was not founded" if predict is None else "Arousal: " + str(predict)[:6]
+            "Person was not founded"
+            if predict is None
+            else "Arousal: " + str(predict)[:6]
         )
         rectangle_pos = self._get_rectangle_pos(self.pose_pos, text)
         cv2.rectangle(

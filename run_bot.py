@@ -6,9 +6,9 @@ from moviepy.editor import VideoFileClip
 
 from face.face_model import Model as FaceModel
 from pose.pose_model import ArousalModel
-from voice.voice_model import VoiceModel
 from service.drawer import Drawer
 from service.image_loader import ImageTransformer
+from voice.voice_model import VoiceModel
 
 if __name__ == "__main__":
     # Get telegram bot token from arguments

@@ -30,11 +30,15 @@ class Model:
             "./saved_models/face/res10_300x300_ssd_iter_140000.caffemodel",
         )
         if torch.cuda.is_available():
-            self.emotion_classifier = torch.jit.load("./saved_models/face/ResnetRUL_cuda.pth")
-            self.device = 'cuda'
+            self.emotion_classifier = torch.jit.load(
+                "./saved_models/face/ResnetRUL_cuda.pth"
+            )
+            self.device = "cuda"
         else:
-            self.emotion_classifier = torch.jit.load("./saved_models/face/ResnetRUL_cpu.pth")
-            self.device = 'cpu'
+            self.emotion_classifier = torch.jit.load(
+                "./saved_models/face/ResnetRUL_cpu.pth"
+            )
+            self.device = "cpu"
 
     def predict(self, image):
 
